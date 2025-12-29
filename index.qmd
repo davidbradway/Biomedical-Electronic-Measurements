@@ -1,6 +1,6 @@
 ---
 title: "Biomedical Electronic Measurements"
-subtitle: "BME253L (Fall 2025)"
+subtitle: "BME290L (Spring 2026)"
 format:
   html: default
   pdf: default
