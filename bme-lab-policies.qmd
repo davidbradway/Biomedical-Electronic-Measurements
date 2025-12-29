@@ -1,6 +1,6 @@
 ---
 title: "BME Lab Procedures and Safety Expectations"
-subtitle: "BME554L (Fall 2025)"
+subtitle: "BME290L (Spring 2026)"
 format:
   html: default
   pdf: default
@@ -41,14 +41,14 @@ team.
 ::: callout-important
 If you or someone else in lab needs immediate medical attention, call 911. 
 :::
-In case you need to report your location, you are in CIEMAS B209.  Non-emergent
+In case you need to report your location, you are in Hudson 028.  Non-emergent
 problems, call 681-WELL (681-9355). If you are injured in lab, you must let an
 instructor/TA/lab staff member know as soon as possible. Lab staff after-hours
 phone number is on the contact cards posted outside every lab door.
 
 ::: callout-note
 Keep these points in mind...
--    In an emergency, call 911. Location: CIEMAS B209
+-    In an emergency, call 911. Location: Hudson 028
 
 -    In the event of a non-emergent injury, seek medical attention and let an
 instructor/TA/lab staff know within 12 hours.
