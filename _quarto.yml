@@ -3,10 +3,10 @@ project:
 
 website:
   title: "Biomedical Electronic Measurements"
-  description: "Duke BME 253L - Fall 2025"
-  site-url: "https://mlp6.github.io/Biomedical-Electronic-Measurements/"
+  description: "Duke BME 290L - Spring 2026"
+  site-url: "https://davidbradway.github.io/Biomedical-Electronic-Measurements/"
   
-  repo-url: "https://github.com/mlp6/Biomedical-Electronic-Measurements/"
+  repo-url: "https://github.com/davidbradway/Biomedical-Electronic-Measurements/"
   repo-actions: [issue]
 
   sidebar:
@@ -23,11 +23,11 @@ website:
           text: Course Syllabus
         - href: bme-lab-policies.qmd
           text: "BME Lab Policies"
-        - href: https://canvas.duke.edu/courses/61472
+        - href: https://canvas.duke.edu/courses/72521
           text: Canvas
-        - href: https://edstem.org/us/courses/81250/
+        - href: https://edstem.org/us/courses/90243/
           text: Ed Discussion
-        - href: https://canvas.duke.edu/courses/61472
+        - href: https://canvas.duke.edu/courses/72521
           text: Gradescope
         # - text: Panopto
         - href: software-install-tutorials.qmd
@@ -123,7 +123,7 @@ website:
 
     page-footer:
       right: 'This page is built with [Quarto](https://quarto.org/).'
-      left: "&copy; Copyright 2025, Mark Palmeri"
+      left: "&copy; Copyright 2025, David Bradway"
 
 format:
   html:
