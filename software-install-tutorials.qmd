@@ -1,7 +1,7 @@
 ---
 title: Software Installation and Tutorials
-subtitle: "BME253L (Fall 2025)"
-date: 2025-08-25
+subtitle: "BME290L (Spring 2026)"
+date: 2025-12-29
 format:
   html: default
   pdf: default
@@ -52,7 +52,9 @@ starting point:
 This is a good tutorial on getting started with Jupyter notebooks in VS Code:
 [Jupyter Notebooks in Visual Studio Code](https://code.visualstudio.com/docs/python/jupyter-support).
 
-You can also choose to edit your Jupyter notebooks with a cloud-based tool, like [Google CoLab](https://colab.google/), but that approach will not receive help / troubleshooting from Dr. Palmeri or the teaching team.
+You can also choose to edit your Jupyter notebooks with a cloud-based tool, like 
+[Google CoLab](https://colab.google/), but that approach will not receive help / troubleshooting 
+from Dr. Bradway or the teaching team.
 
 ## Gradescope
 
