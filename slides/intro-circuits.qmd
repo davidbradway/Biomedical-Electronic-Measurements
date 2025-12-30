@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Circuits"
-date: "2025-08-25"
+date: "2025-12-30"
 format:
   live-html: 
     output-file: intro-circuits-notes.html

@@ -1,6 +1,6 @@
 ---
 title: "Problem Set 03: Source Superposition, Thevenin & Norton Equivalent Circuits, Maximum Power Transfer"
-date: 2025-09-12
+date: 2025-12-30
 format:
   html: default
   pdf: default

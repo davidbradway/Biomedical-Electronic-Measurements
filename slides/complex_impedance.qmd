@@ -1,6 +1,6 @@
 ---
 title: "Complex Impedance"
-date: "2025-10-01"
+date: "2025-12-30"
 format:
   live-html: 
     output-file: complex-impedance-notes.html

@@ -1,6 +1,6 @@
 ---
 title: "Problem Set 05: Phasors & RCL Circuits"
-date: 2025-10-06
+date: 2025-12-30
 format:
   html: default
   pdf: default

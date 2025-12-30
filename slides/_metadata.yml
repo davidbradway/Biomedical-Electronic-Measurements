@@ -1,10 +1,10 @@
 institute: "Duke University"
-subtitle: "BME253L - Fall 2025"
-author: "Dr. Mark Palmeri, M.D., Ph.D."
+subtitle: "BME290L - Spring 2026"
+author: "Dr. David Bradway, Ph.D."
 date-format: long
 format:
   live-revealjs:
-    footer: "[🔗 https://mlp6.github.io/Biomedical-Electronic-Measurements/](https://mlp6.github.io/Biomedical-Electronic-Measurements/)"
+    footer: "[🔗 https://davidbradway.github.io/Biomedical-Electronic-Measurements/](https://davidbradway.github.io/Biomedical-Electronic-Measurements/)"
     theme: slides.scss
     transition: fade
     slide-number: true

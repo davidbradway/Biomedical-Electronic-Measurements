@@ -1,6 +1,6 @@
 ---
 title: "Source Superposition & Thevenin/Norton Equivalents"
-date: "2025-09-10"
+date: "2025-12-30"
 format:
   live-html: 
     output-file: sources-notes.html

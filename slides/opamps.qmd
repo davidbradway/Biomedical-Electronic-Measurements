@@ -1,6 +1,6 @@
 ---
 title: "Operational Amplifiers (Op-Amps)"
-date: "2025-11-03"
+date: "2025-12-30"
 format:
   live-html: 
     output-file: opamps-notes.html

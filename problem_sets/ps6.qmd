@@ -1,6 +1,6 @@
 ---
 title: "Problem Set 06: Operational Amplifier Circuits"
-date: 2025-11-07
+date: 2025-12-30
 format:
   html: default
   pdf: default
