@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fced259a1985fd972ecb57c7cd45153f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
+
+  <meta name="author" content="Dr.&nbsp;Mark Palmeri, M.D., Ph.D.">
+  <meta name="dcterms.date" content="2025-09-08">
+  <title>Biomedical Electronic Measurements – Node Voltage &amp; Mesh Current Analysis</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f1d94928152c1c7297a88c13674de5fd.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Node Voltage &amp; Mesh Current Analysis</h1>
+  <p class="subtitle">BME253L - Fall 2025</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Mark Palmeri, M.D., Ph.D. 
+</div>
+        <p class="quarto-title-affiliation">
+            Duke University
+          </p>
+    </div>
+</div>
+
+  <p class="date">September 8, 2025</p>
+</section>
+<section id="learning-objectives" class="title-slide slide level2 center">
+<h2>Learning Objectives</h2>
+<ul>
+<li><p>Practice using voltage and current division, with equivalent resistances, to analyze circuits.</p></li>
+<li><p>Introduce and implement Node Voltage Analysis (NVA)</p></li>
+<li><p>Introduce and implement Mesh Current Analysis (MCA)</p></li>
+</ul>
+</section>
+
+<section>
+<section id="solve-for-v_o-using-voltage-division" class="title-slide slide level2 center">
+<h2>Solve for <span class="math inline">\(v_o\)</span> Using Voltage Division</h2>
+
+<img data-src="images/r_eq_ckt_labeled_sw_closed.png" class="quarto-figure quarto-figure-center r-stretch"><div style="text-align: center;">
+<p>Given: <span class="math inline">\(v_s = 300 V\)</span>, <span class="math inline">\(R_1 = R_2 = R_0 = 100 \Omega\)</span>, <span class="math inline">\(R_3 = 200 \Omega\)</span></p>
+</div>
+</section>
+<section id="step-1-solve-for-v_o-in-terms-of-v_3" class="slide level3">
+<h3>Step 1: Solve for <span class="math inline">\(v_o\)</span> in terms of <span class="math inline">\(v_3\)</span></h3>
+
+<img data-src="images/r_eq_ckt_labeled_sw_closed.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<li><p>Voltage division of nodes <span class="math inline">\(B \rightarrow C \rightarrow D\)</span>.</p></li>
+<li><p><span class="math inline">\(v_o = v_3 \frac{R_o}{R_o + R_2}\)</span></p></li>
+</ul>
+</section>
+<section id="step-2-solve-for-v_3-in-terms-of-v_s" class="slide level3">
+<h3>Step 2: Solve for <span class="math inline">\(v_3\)</span> in terms of <span class="math inline">\(v_s\)</span></h3>
+<p><span class="math display">\[
+\begin{gather}
+v_3 = v_s \frac{R_3 || (R_o + R_2)}{R_1 + R_3 || (R_o+R_2)} \\
+v_o = 75 V
+\end{gather}
+\]</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>We didn’t have the explicitly use KCL, KVL or Ohm’s law (<em>but they are all in play for the voltage division and equivalent resistance relationships</em>)!</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="solve-for-i_1r_x-using-current-division" class="title-slide slide level2 center">
+<h2>Solve for <span class="math inline">\(i_1(R_x)\)</span> Using Current Division</h2>
+
+<img data-src="images/current_division_example.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="simplify-to-equivalent-circuit-with-two-branches" class="slide level3">
+<h3>Simplify to Equivalent Circuit with Two Branches</h3>
+<p><span class="math display">\[
+\begin{gather}
+i_1 = i_s \frac{R_{eq}}{R_1 + R_{eq}} \\
+R_{eq} = R_2 || (R+R') \\
+\end{gather}
+\]</span></p>
+<p>Let <span class="math inline">\(R_3 = R + R'\)</span> (series equivalent), just to make expression easier to read.</p>
+<p><span class="math display">\[
+i_1 = i_s \frac{R_2 R_3}{R_2 R_3 + R_1 R_3 + R_1 R_2}
+\]</span></p>
+</section></section>
+<section>
+<section id="node-voltage-analysis-nva" class="title-slide slide level2 center">
+<h2>Node Voltage Analysis (NVA)</h2>
+<ul>
+<li>More complex circuits will quickly become overwhelming with number of simultaneous equations to solve based on KVL, KCL and Ohm’s law.</li>
+</ul>
+<div title="Example">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A circuit with 6 elements yields 12 equations and 12 unknowns!</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>One approach to reducing this number of equations and unknowns is to express the system of circuit analysis equiations in terms of <strong>node voltages</strong>.</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/node_voltage_R.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{gather}
+i_R = \frac{v_A - v_B}{R} \\
+v_R = v_A - v_B
+\end{gather}
+\]</span></p>
+</div></div>
+</section>
+<section id="nva-general-approach" class="slide level3">
+<h3>NVA: General Approach</h3>
+<ul>
+<li>Label nodes, reference (<code>GND</code> = 0), and component voltages.</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/nva_general_approach.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<p><span class="math display">\[
+\begin{align}
+v_1 &amp; = v_A - v_D = v_A \\
+v_2 &amp; = v_A - v_B \\
+v_3 &amp; = v_B - v_D = v_B \\
+v_4 &amp; = v_B - v_C \\
+v_5 &amp; = v_C - v_D = v_C
+\end{align}
+\]</span></p>
+</div></div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Note that 5 unknown voltages (<span class="math inline">\(v_{1-5}\)</span>) have been reduced to 3 (<span class="math inline">\(v_{A-C}\)</span>)!</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Nodes shared by components get reduced.</p></li>
+<li><p>The reference (ground) node is 0.</p></li>
+</ul>
+</section>
+<section id="nva-example-ladder-circuit" class="slide level3">
+<h3>NVA Example: Ladder Circuit</h3>
+
+<img data-src="images/nva_ladder_ckt.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<li><p>Identify &amp; label all nodes.</p></li>
+<li><p>Label component voltages.</p></li>
+<li><p>Select &amp; label reference node (ground).</p></li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Choose a reference node that is shared by a lot of components. Since it is “0”, that node will disappear from all equations.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="write-element-voltages-in-terms-of-node-voltages." class="slide level3">
+<h3>Write element voltages in terms of node voltages.</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/nva_ladder_ckt.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[
+\begin{align}
+v_E &amp; = 0 \\
+v_s &amp; = v_A - v_E = v_A \\
+v_1 &amp; = v_A - v_B \\
+v_2 &amp; = v_B - v_E = v_B \\
+v_3 &amp; = v_B - v_C \\
+v_4 &amp; = v_C - v_E = v_C \\
+v_5 &amp; = v_C - v_D \\
+v_6 &amp; = v_D - v_E = v_D
+\end{align}
+\]</span></p>
+</div></div>
+</section>
+<section id="apply-kcl-at-nodes-except-at-sources-and-reference" class="slide level3">
+<h3>Apply KCL at nodes (except at sources and reference)</h3>
+<p><span class="math display">\[
+\begin{align}
+B &amp; : i_1 = i_2 + i_3 \\
+C &amp; : i_3 = i_4 + i_5 \\
+D &amp; : i_5 = i_6
+\end{align}
+\]</span></p>
+</section>
+<section id="apply-ohms-law-to-relate-is-to-vs" class="slide level3">
+<h3>Apply Ohm’s Law (to relate <span class="math inline">\(i\)</span>s to <span class="math inline">\(v\)</span>s)</h3>
+<p><span class="math display">\[
+\begin{align}
+i_1 &amp; = \frac{v_A - v_B}{R_1} = \frac{v_S - v_B}{R_1} \\
+i_2 &amp; = \frac{v_B}{R_2} \\
+i_3 &amp; = \frac{v_B - v_C}{R_3} \\
+i_4 &amp; = \frac{v_C}{R_4} \\
+i_5 &amp; = \frac{v_C - v_D}{R_5} \\
+i_6 &amp; = \frac{v_D}{R_5}
+\end{align}
+\]</span></p>
+</section>
+<section id="sub-vs-into-kcl-i-expressions" class="slide level3">
+<h3>Sub <span class="math inline">\(v\)</span>’s into KCL <span class="math inline">\(i\)</span> expressions</h3>
+<ul>
+<li>Node B</li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+\frac{v_s - v_B}{R_1} = \frac{v_B}{R_2} + \frac{v_B-v_C}{R_3} \\
+v_B\left( \frac{-1}{R_1}-\frac{1}{R_2}-\frac{1}{R_3} \right) + \frac{v_C}{R_3} = \frac{-v_s}{R_1}
+\end{gather}
+\]</span></p>
+<ul>
+<li>Node C</li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+\frac{v_B-v_C}{R_3} = \frac{v_C}{R_4} + \frac{v_C-v_D}{R_5} \\
+\frac{v_B}{R_3} + v_C\left(\frac{-1}{R_3}-\frac{1}{R_4}-\frac{1}{R_5} \right) + \frac{v_D}{R_5} = 0
+\end{gather}
+\]</span></p>
+</section>
+<section class="slide level3">
+
+<ul>
+<li>Node D</li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+\frac{v_C - v_D}{R_5} = \frac{v_D}{R_6} \\
+\frac{v_C}{R_5}+v_D\left(\frac{-1}{R_5}-\frac{1}{R_6} \right) = 0
+\end{gather}
+\]</span></p>
+</section>
+<section id="solve-simultaneous-equations" class="slide level3">
+<h3>Solve Simultaneous Equations</h3>
+<ul>
+<li><p>We now have 3 equations and 3 unknowns!</p></li>
+<li><p>Setup 3x3 matrix with 3 linear, independent rows and columns to solve for <span class="math inline">\([v]\)</span>.</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{bmatrix}
+\left(-\frac{1}{R_1}-\frac{1}{R_2}-\frac{1}{R_3}\right) &amp; \frac{1}{R_3} &amp; 0 \\
+\frac{1}{R_3} &amp; \left(-\frac{1}{R_3}-\frac{1}{R_4}-\frac{1}{R_5}\right) &amp; \frac{1}{R_5} \\
+0 &amp; \frac{1}{R_5} &amp; \left(-\frac{1}{R_5}-\frac{1}{R_6}\right)
+\end{bmatrix}
+\begin{bmatrix}
+v_B \\
+v_C \\
+v_D
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{-v_s}{R_1} \\
+0 \\
+0
+\end{bmatrix}
+\]</span></p>
+<ul>
+<li>Solve for <span class="math inline">\([v]\)</span> and then relative back to element equations to solve for element voltages and currents.</li>
+</ul>
+</section></section>
+<section>
+<section id="nva-example-two-sources" class="title-slide slide level2 center">
+<h2>NVA Example: Two-Sources</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/nva_two_sources.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div><div class="column" style="width:45%;">
+<ul>
+<li><p>Nodes A &amp; C are set by two voltage sources.</p>
+<ul>
+<li><p><span class="math inline">\(v_A = v_{S1}\)</span></p></li>
+<li><p><span class="math inline">\(v_B = v_{S2}\)</span></p></li>
+</ul></li>
+<li><p>Node D is reference (0).</p></li>
+<li><p>Only <span class="math inline">\(v_B\)</span> is unknown.</p></li>
+</ul>
+</div></div>
+</section>
+<section id="setup-nva-equations" class="slide level3">
+<h3>Setup NVA Equations</h3>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/nva_two_sources.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div><div class="column" style="width:45%;">
+<ul>
+<li><p><span class="math inline">\(v_1 = v_{S1} - v_B\)</span></p></li>
+<li><p><span class="math inline">\(v_2 = v_B\)</span></p></li>
+<li><p><span class="math inline">\(v_3 = v_B - v_{S2}\)</span></p></li>
+<li><p>KCL @ B: <span class="math inline">\(i_1 = i_2 + i_3\)</span></p></li>
+</ul>
+</div></div>
+</section>
+<section id="solve-for-v_b" class="slide level3">
+<h3>Solve for <span class="math inline">\(v_B\)</span></h3>
+<p><span class="math display">\[
+\begin{gather}
+\frac{v_{S1} - v_B}{R_1} = \frac{v_B}{R_2} + \frac{v_B - V_{S2}}{R_3} \\
+v_B = \frac{\frac{v_{S1}}{R_1} + \frac{v_{S2}}{R_3}}{\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}}
+\end{gather}
+\]</span></p>
+</section></section>
+<section>
+<section id="mesh-current-analysis-mca" class="title-slide slide level2 center">
+<h2>Mesh Current Analysis (MCA)</h2>
+
+<img data-src="images/mca_ladder_ckt.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<li>Like NVA, which leverages KCL to simplify circuit analysis, MCA leverages KVL to simplify circuit analysis.</li>
+</ul>
+</section>
+<section id="mca-procedure" class="slide level3">
+<h3>MCA Procedure</h3>
+<ol type="1">
+<li><p>Identify <strong>meshes</strong> (closed loops, like used for NVA).</p></li>
+<li><p>Assign unknonw mesh currents in a <strong>clockwise</strong> direction.</p></li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>It is okay to assign a mesh current orientation that is opposite that of a current source. That will work itself out in the sign of the current.</p>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li><p>Apply KVL to each mesh with mesh currents being used for circuit elements.</p></li>
+<li><p>Solve linear set of equations.</p></li>
+</ol>
+</section>
+<section id="mesh-a" class="slide level3">
+<h3>Mesh A</h3>
+
+<img data-src="images/mca_ladder_ckt.png" class="quarto-figure quarto-figure-center r-stretch"><p><span class="math display">\[
+\begin{gather}
+-v_s + i_A R_1 + (i_A - i_B) R_2 = 0 \\
+v_s = i_A (R_1 + R_2) - i_B R_2
+\end{gather}
+\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(i_A\)</span> and <span class="math inline">\(i_B\)</span> are <strong>not</strong> the physical element currents; they are the <strong>mesh currents</strong>. The physical currents will be the superposition of the relevant mesh currents.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="mesh-b" class="slide level3">
+<h3>Mesh B</h3>
+
+<img data-src="images/mca_ladder_ckt.png" class="quarto-figure quarto-figure-center r-stretch"><p><span class="math display">\[
+\begin{gather}
+i_B R_3 + (i_B - i_C) R_4 + (i_B - i_A) R_2 = 0 \\
+-i_A R_2 + i_B (R_2 + R_3 + R_4) - i_C R_4 = 0
+\end{gather}
+\]</span></p>
+</section>
+<section id="mesh-c" class="slide level3">
+<h3>Mesh C</h3>
+
+<img data-src="images/mca_ladder_ckt.png" class="quarto-figure quarto-figure-center r-stretch"><p><span class="math display">\[
+\begin{gather}
+i_C R_5 + i_C R_6 + (i_C - i_B) R_4 = 0 \\
+-i_B R_4 + i_C (R_4 + R_5 + R_6) = 0
+\end{gather}
+\]</span></p>
+</section></section>
+<section id="solve-linear-set-of-equations" class="title-slide slide level2 center">
+<h2>Solve Linear Set of Equations</h2>
+<p><span class="math display">\[
+\begin{bmatrix}
+R_1 + R_2 &amp; -R_2 &amp; 0 \\
+-R_2 &amp; R_2 + R_3 + R_4 &amp; -R_4 \\
+0 &amp; -R_4 &amp; R_4 + R_5 + R_6
+\end{bmatrix}
+\begin{bmatrix}
+i_A \\
+i_B \\
+i_C
+\end{bmatrix}
+=
+\begin{bmatrix}
+v_s \\
+0 \\
+0
+\end{bmatrix}
+\]</span></p>
+<div title="Looks like Ohm's Law!">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Looks like Ohm’s Law!</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[
+\begin{gather}
+\bar{R} \bar{I} = \bar{V} \\
+\bar{I} = \bar{R}^{-1} \bar{V}
+\end{gather}
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Solve for physical currents and voltages in terms of known mesh currents.</li>
+</ul>
+</section>
+
+<section id="mca-current-sources" class="title-slide slide level2 center">
+<h2>MCA: Current Sources</h2>
+
+<img data-src="images/mca_two_sources.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<li><p>Mesh A: <span class="math inline">\(-V_S + i_A R_1 + (i_A - i_B) R_2 = 0\)</span></p></li>
+<li><p>Mesh B: <span class="math inline">\(i_B = -I_S\)</span></p></li>
+<li><p>Solve for <span class="math inline">\(i_A = \frac{V_s - I_s R_2}{R_1 + R_2}\)</span></p></li>
+<li><p>Solve for physical voltages and currents in terms of mesh currents.</p></li>
+</ul>
+</section>
+
+<section>
+<section id="mca-shared-mesh-current-sources" class="title-slide slide level2 center">
+<h2>MCA: Shared Mesh Current Sources</h2>
+
+<img data-src="images/mca_super_mesh.png" class="quarto-figure quarto-figure-center r-stretch"><p>Solve for <span class="math inline">\(i_4\)</span>.</p>
+<ol type="1">
+<li>Setup meshes.</li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Remember to keep all mesh current orientations clockwise!</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>KVL around each mesh.</li>
+</ol>
+</section>
+<section id="mesh-a-1" class="slide level3">
+<h3>Mesh A</h3>
+
+<img data-src="images/mca_super_mesh.png" class="quarto-figure quarto-figure-center r-stretch"><p><span class="math display">\[
+i_A = I_{S1}
+\]</span></p>
+</section>
+<section id="mesh-b-c" class="slide level3">
+<h3>Mesh B &amp; C</h3>
+
+<img data-src="images/mca_super_mesh.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<li><span class="math inline">\(I_{S2}\)</span> is shared between meshes <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>.</li>
+</ul>
+<p><span class="math display">\[
+I_{S2} = i_C - i_B
+\]</span></p>
+<ul>
+<li>Meshes <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> are a <strong>super mesh</strong> since their currents are related by <span class="math inline">\(I_{S2}\)</span> We can then take KVL around their combined closed path:</li>
+</ul>
+<p><span class="math display">\[
+v_{R_2} + v_{R_3} + v_{R_4} + v_{R_5} = 0
+\]</span></p>
+</section>
+<section id="solve-ohms-law-in-terms-of-mesh-currents" class="slide level3">
+<h3>Solve: Ohm’s Law (in terms of mesh currents)</h3>
+<p><span class="math display">\[
+\begin{gather}
+(i_B - i_A) R_2 + i_B R_3 + i_C R_4 + i_C R_5 = 0 \\
+i_A = I_{S1} \\
+i_C = i_B + I_{S2} = i_4 \\
+i_4 = I_{S1} \left(\frac{R_2}{R_2 + R_3 + R_4 + R_5}\right) + I_{S2} \left(\frac{R_2 + R_3}{R_2 + R_3 + R_4 + R_5}\right)
+\end{gather}
+\]</span></p>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p><a href="https://mlp6.github.io/Biomedical-Electronic-Measurements/">🔗 https://mlp6.github.io/Biomedical-Electronic-Measurements/</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': true,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../slides";
+    window._ojs.paths.runtimeToRoot = "../..";
+    window._ojs.paths.docToRoot = "..";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/davidbradway\.github\.io\/Biomedical-Electronic-Measurements\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

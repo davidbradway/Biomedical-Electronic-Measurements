@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Mark Palmeri, M.D., Ph.D.">
+<meta name="dcterms.date" content="2025-10-06">
+
+<title>Filters – Biomedical Electronic Measurements</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fced259a1985fd972ecb57c7cd45153f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-89abcb12e8852b82dab2915b19c79ac0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../slides/intro-circuits-notes.html">Learning Modules</a></li><li class="breadcrumb-item"><a href="../slides/filters-notes.html">Filters</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Biomedical Electronic Measurements</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course Information</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bme-lab-policies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BME Lab Policies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://canvas.duke.edu/courses/72521" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Canvas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://edstem.org/us/courses/90243/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ed Discussion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://canvas.duke.edu/courses/72521" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gradescope</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../software-install-tutorials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Software Installation &amp; Tutorials</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Learning Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/intro-circuits-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Circuits</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/ohm-kcl-kvl-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ohm’s Law, KCL, and KVL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/r_eq-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Series and Parallel Resistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/circuit-analysis-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Circuit Analysis Techniques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/sources-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Source Transformations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/ecad_kicad_schematic-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECAD using KiCad: Schematic Capture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/ecad_kicad_spice-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECAD using KiCad: SPICE Modeling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/reactive-components-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reactive Components: Capacitors &amp; Inductors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/complex-impedance-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Complex Impedance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/filters-notes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Filters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/transient-analysis-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transient Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/opamps-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Operational Amplifiers (Op-Amps)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/diodes-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diodes &amp; Rectifiers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/ohms_power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ohm’s Law and Power</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/kicad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KiCad: Schematic Capture &amp; SPICE Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/caps_inductors_scopes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Capacitors, Inductors, and Oscilloscopes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/impedance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Impedance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/filters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/transient_resp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transient Response</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/opamps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Operational Amplifiers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/diodes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diodes and Rectifiers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab_practical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab Practical</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/XYZs_of_Oscopes_Tektronix.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">XYZ of Oscilloscopes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/sinusoidal-signals-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sinusoidal Signals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://connectorbook.com/identification.html?N=&amp;n=lo_prof_w2b_conn&amp;f=tYuE;OA" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Connector Identification Utility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/teaching_assistant_expectations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Teaching Assistant Expectations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Problem Sets</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/_formatting_guidelines.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Formatting Guidelines</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps4_solutions.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 04: Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 05</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/BME253_PSET5_SOLUTION.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 05: Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 06</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exams</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exams/BME153_S09_TEST1_SOLUTIONS.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam 1 (Spring 2009)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exams/BME153_S09_TEST2_SOLUTIONS.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam 2 (Spring 2009)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#circuit-block-diagram" id="toc-circuit-block-diagram" class="nav-link" data-scroll-target="#circuit-block-diagram">Circuit Block Diagram</a></li>
+  <li><a href="#transfer-function" id="toc-transfer-function" class="nav-link" data-scroll-target="#transfer-function">Transfer Function</a></li>
+  <li><a href="#interpretting-a-transfer-function" id="toc-interpretting-a-transfer-function" class="nav-link" data-scroll-target="#interpretting-a-transfer-function">Interpretting a Transfer Function</a>
+  <ul class="collapse">
+  <li><a href="#example-fm-radio" id="toc-example-fm-radio" class="nav-link" data-scroll-target="#example-fm-radio">Example: FM Radio</a></li>
+  <li><a href="#example-audio-equalizer" id="toc-example-audio-equalizer" class="nav-link" data-scroll-target="#example-audio-equalizer">Example: Audio Equalizer</a></li>
+  </ul></li>
+  <li><a href="#how-to-design-a-low-pass-filter-lpf" id="toc-how-to-design-a-low-pass-filter-lpf" class="nav-link" data-scroll-target="#how-to-design-a-low-pass-filter-lpf">How to Design a Low-Pass Filter (LPF)</a>
+  <ul class="collapse">
+  <li><a href="#solve-for-transfer-function" id="toc-solve-for-transfer-function" class="nav-link" data-scroll-target="#solve-for-transfer-function">Solve for Transfer Function</a></li>
+  <li><a href="#does-this-make-sense" id="toc-does-this-make-sense" class="nav-link" data-scroll-target="#does-this-make-sense">Does this make sense?</a></li>
+  <li><a href="#complete-transfer-function" id="toc-complete-transfer-function" class="nav-link" data-scroll-target="#complete-transfer-function">Complete Transfer Function</a></li>
+  <li><a href="#how-is-omega_o-related-to-r-and-c" id="toc-how-is-omega_o-related-to-r-and-c" class="nav-link" data-scroll-target="#how-is-omega_o-related-to-r-and-c">How is <span class="math inline">\(\omega_o\)</span> related to <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span>?</a></li>
+  <li><a href="#how-to-design-a-high-pass-filter-hpf" id="toc-how-to-design-a-high-pass-filter-hpf" class="nav-link" data-scroll-target="#how-to-design-a-high-pass-filter-hpf">How to Design a High-Pass Filter (HPF)</a></li>
+  <li><a href="#hpf-transfer-function" id="toc-hpf-transfer-function" class="nav-link" data-scroll-target="#hpf-transfer-function">HPF Transfer Function</a></li>
+  <li><a href="#what-is-the-cutoff-frequency" id="toc-what-is-the-cutoff-frequency" class="nav-link" data-scroll-target="#what-is-the-cutoff-frequency">What is the cutoff frequency?</a></li>
+  <li><a href="#hpf-transfer-function-plot" id="toc-hpf-transfer-function-plot" class="nav-link" data-scroll-target="#hpf-transfer-function-plot">HPF Transfer Function Plot</a></li>
+  </ul></li>
+  <li><a href="#spice-simulation-of-filters" id="toc-spice-simulation-of-filters" class="nav-link" data-scroll-target="#spice-simulation-of-filters">SPICE Simulation of Filters</a></li>
+  <li><a href="#input-output-impedance" id="toc-input-output-impedance" class="nav-link" data-scroll-target="#input-output-impedance">Input &amp; Output Impedance</a>
+  <ul class="collapse">
+  <li><a href="#example-circuit" id="toc-example-circuit" class="nav-link" data-scroll-target="#example-circuit">Example Circuit</a></li>
+  <li><a href="#what-does-the-impedance-of-the-filter-look-like-to-the-source" id="toc-what-does-the-impedance-of-the-filter-look-like-to-the-source" class="nav-link" data-scroll-target="#what-does-the-impedance-of-the-filter-look-like-to-the-source">What does the impedance of the filter look like to the source?</a></li>
+  <li><a href="#input-impedance-considerations" id="toc-input-impedance-considerations" class="nav-link" data-scroll-target="#input-impedance-considerations">Input Impedance Considerations</a></li>
+  <li><a href="#what-does-the-impedance-of-the-filter-look-like-to-the-load" id="toc-what-does-the-impedance-of-the-filter-look-like-to-the-load" class="nav-link" data-scroll-target="#what-does-the-impedance-of-the-filter-look-like-to-the-load">What does the impedance of the filter look like to the load?</a></li>
+  </ul></li>
+  <li><a href="#bandpass-filter-second-order-rlc" id="toc-bandpass-filter-second-order-rlc" class="nav-link" data-scroll-target="#bandpass-filter-second-order-rlc">Bandpass Filter (Second-Order, RLC)</a>
+  <ul class="collapse">
+  <li><a href="#cutoff-frequencies" id="toc-cutoff-frequencies" class="nav-link" data-scroll-target="#cutoff-frequencies">Cutoff Frequencies</a></li>
+  <li><a href="#characteristic-frequencies" id="toc-characteristic-frequencies" class="nav-link" data-scroll-target="#characteristic-frequencies">Characteristic Frequencies</a></li>
+  <li><a href="#calculating-cutoff-frequencies" id="toc-calculating-cutoff-frequencies" class="nav-link" data-scroll-target="#calculating-cutoff-frequencies">Calculating Cutoff Frequencies</a></li>
+  <li><a href="#quality-factor" id="toc-quality-factor" class="nav-link" data-scroll-target="#quality-factor">Quality Factor</a></li>
+  <li><a href="#damping-factor" id="toc-damping-factor" class="nav-link" data-scroll-target="#damping-factor">Damping Factor</a></li>
+  </ul></li>
+  <li><a href="#bode-plots" id="toc-bode-plots" class="nav-link" data-scroll-target="#bode-plots">Bode Plots</a>
+  <ul class="collapse">
+  <li><a href="#key-features-of-bode-plots" id="toc-key-features-of-bode-plots" class="nav-link" data-scroll-target="#key-features-of-bode-plots">Key Features of Bode Plots</a></li>
+  <li><a href="#steps-to-create-a-bode-plot" id="toc-steps-to-create-a-bode-plot" class="nav-link" data-scroll-target="#steps-to-create-a-bode-plot">Steps to Create a Bode Plot</a></li>
+  <li><a href="#decibel-db-scale" id="toc-decibel-db-scale" class="nav-link" data-scroll-target="#decibel-db-scale">Decibel (dB) Scale</a></li>
+  <li><a href="#decibel-voltage-gain" id="toc-decibel-voltage-gain" class="nav-link" data-scroll-target="#decibel-voltage-gain">Decibel Voltage Gain</a></li>
+  <li><a href="#why-decibels" id="toc-why-decibels" class="nav-link" data-scroll-target="#why-decibels">Why decibels?</a></li>
+  <li><a href="#example-first-order-low-pass-filter" id="toc-example-first-order-low-pass-filter" class="nav-link" data-scroll-target="#example-first-order-low-pass-filter">Example: First-Order Low-Pass Filter</a></li>
+  <li><a href="#drawing-a-bode-plot-magnitude" id="toc-drawing-a-bode-plot-magnitude" class="nav-link" data-scroll-target="#drawing-a-bode-plot-magnitude">Drawing a Bode Plot (Magnitude)</a></li>
+  <li><a href="#drawing-a-bode-plot-phase" id="toc-drawing-a-bode-plot-phase" class="nav-link" data-scroll-target="#drawing-a-bode-plot-phase">Drawing a Bode Plot (Phase)</a></li>
+  <li><a href="#what-does-the-bode-plot-of-a-first-order-high-pass-filter-look-like" id="toc-what-does-the-bode-plot-of-a-first-order-high-pass-filter-look-like" class="nav-link" data-scroll-target="#what-does-the-bode-plot-of-a-first-order-high-pass-filter-look-like">What does the Bode Plot of a First-Order High-Pass Filter Look Like?</a></li>
+  </ul></li>
+  <li><a href="#summary-for-generating-bode-plots" id="toc-summary-for-generating-bode-plots" class="nav-link" data-scroll-target="#summary-for-generating-bode-plots">Summary for Generating Bode Plots</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/davidbradway/Biomedical-Electronic-Measurements/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="filters-slides.html"><i class="bi bi-file-slides"></i>RevealJS (live)</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../slides/intro-circuits-notes.html">Learning Modules</a></li><li class="breadcrumb-item"><a href="../slides/filters-notes.html">Filters</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Filters</h1>
+<p class="subtitle lead">BME253L - Fall 2025</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Mark Palmeri, M.D., Ph.D. </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Duke University
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 6, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The <strong>frequency response</strong> of a circuit is a measure of the variation of a load-related voltage/current signal as a function of the frequency content of the source signal.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Goal">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Goal
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Our goal is to evaluate the modulation of an input (voltage) signal by a circuit with frequency-dependent behavior leading to a frequency-dependent output (voltage) signal.</p>
+</div>
+</div>
+</section>
+<section id="circuit-block-diagram" class="level2">
+<h2 class="anchored" data-anchor-id="circuit-block-diagram">Circuit Block Diagram</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/source-filter-load.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Generalized circuit block diagram with a source (input signal), a filter (circuit with frequency-dependent behavior), and a load (output signal).</p>
+</section>
+<section id="transfer-function" class="level2">
+<h2 class="anchored" data-anchor-id="transfer-function">Transfer Function</h2>
+<ul>
+<li><p>A <strong>transfer function</strong> is a mathematical representation of the relationship between the input and output of a system as a function of frequency.</p></li>
+<li><p>It describes how a filter modifies the amplitude and phase of the input signal to produce the output signal.</p></li>
+</ul>
+<p><span class="math display">\[
+\bar{H}(j\omega) = \frac{\bar{V}_{out}(j\omega)}{\bar{V}_{in}(j\omega)}
+\]</span></p>
+<ul>
+<li><p>Complex quantity</p></li>
+<li><p>Dimensionless</p></li>
+<li><p>Function of frequency (<span class="math inline">\(\omega\)</span>)</p></li>
+</ul>
+</section>
+<section id="interpretting-a-transfer-function" class="level2">
+<h2 class="anchored" data-anchor-id="interpretting-a-transfer-function">Interpretting a Transfer Function</h2>
+<ul>
+<li><span class="math inline">\(\bar{V}_{L}(j\omega)\)</span> will be an <strong>amplitude-modulated</strong> and <strong>phase-modulated</strong> version of <span class="math inline">\(\bar{V}_{S}(j\omega)\)</span>.</li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+V_{L} e^{j\phi_L} = |H|e^{j\angle H} V_{S} e^{j\phi_S} = |H| V_{S} e^{j(\phi_S + \angle H)} \\
+V_{L} = |H| V_{S} \\
+\phi_L = \angle H + \phi_S
+\end{gather}
+\]</span></p>
+<section id="example-fm-radio" class="level3">
+<h3 class="anchored" data-anchor-id="example-fm-radio">Example: FM Radio</h3>
+<ul>
+<li><p>Input/Source: all the stations broadcast span a wide range of frequencies in the FM band (88-108 MHz).</p></li>
+<li><p>Desired Output/Load: a single station (e.g., 101.1 MHz).</p></li>
+<li><p>Draw:</p>
+<ul>
+<li><p>Input signal: multiple frequencies</p></li>
+<li><p>Output signal: single frequency</p></li>
+<li><p>Transfer function: band-pass filter centered at 101.1 MHz</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-audio-equalizer" class="level3">
+<h3 class="anchored" data-anchor-id="example-audio-equalizer">Example: Audio Equalizer</h3>
+<ul>
+<li><p>Input/Source: music signal with a wide range of frequencies (bass, midrange, treble).</p></li>
+<li><p>Desired Output/Load: enhanced bass and treble frequencies.</p></li>
+<li><p>Draw:</p>
+<ul>
+<li><p>Input signal: full spectrum</p></li>
+<li><p>Output signal: enhanced bass and treble</p></li>
+<li><p>Transfer functions: low-pass and high-pass filters</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="how-to-design-a-low-pass-filter-lpf" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-design-a-low-pass-filter-lpf">How to Design a Low-Pass Filter (LPF)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lpf.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Let’s inspect the frequency response (transfer function) of this circuit…</p>
+<p><span class="math display">\[
+V_o = V_i \frac{\frac{1}{j\omega C}}{R + \frac{1}{j \omega C}} \\
+\]</span></p>
+<p>How did I get this expression?</p>
+<section id="solve-for-transfer-function" class="level3">
+<h3 class="anchored" data-anchor-id="solve-for-transfer-function">Solve for Transfer Function</h3>
+<p><span class="math display">\[
+\frac{V_o}{V_i} = \frac{1}{1 + j\omega RC} \\
+\]</span></p>
+<p>Convert to polar form to get magnitude and phase:</p>
+<p><span class="math display">\[
+\begin{gather}
+|\bar{H}(j\omega)| = \frac{1}{\sqrt{1 + (\omega RC)^2}} \\
+\angle \bar{H}(j\omega) = -\tan^{-1}(\omega RC) \\
+\end{gather}
+\]</span></p>
+</section>
+<section id="does-this-make-sense" class="level3">
+<h3 class="anchored" data-anchor-id="does-this-make-sense">Does this make sense?</h3>
+<p>Let’s test some different frequencies to see what the transfer function tells us…</p>
+<ul>
+<li>At <span class="math inline">\(\omega = 0\)</span> (DC):</li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+|\bar{H}(j0)| = 1 \\
+\angle \bar{H}(j0) = 0^\circ \\
+\end{gather}
+\]</span></p>
+<p>That means that at DC, the output voltage is equal to the input voltage (no attenuation, no phase shift): <span class="math inline">\(V_o = V_i\)</span>. The capacitor is effectively an open circuit at DC.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lpf-dc.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<hr>
+<ul>
+<li>At <span class="math inline">\(\omega = \infty\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+|\bar{H}(j\infty)| = 0 \\
+\angle \bar{H}(j\infty) = -90^\circ \\
+\end{gather}
+\]</span></p>
+<p>That means that at high frequencies, the output voltage is zero (completely attenuated) and the phase shift is -90 degrees: <span class="math inline">\(V_o = 0\)</span>. The capacitor is effectively a short circuit at high frequencies.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lpf-high-freq.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="complete-transfer-function" class="level3">
+<h3 class="anchored" data-anchor-id="complete-transfer-function">Complete Transfer Function</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rc_lpf_xfer_func.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li><p>Note the logarithmic scale on the x-axis (frequency).</p></li>
+<li><p><span class="math inline">\(\omega_o\)</span> is a characterisitic “cutoff” frequency that conveys information about the frequency response of the circuit.</p>
+<ul>
+<li><p><span class="math inline">\(V_o\)</span> is at <strong>half power</strong> of <span class="math inline">\(V_i\)</span> (<span class="math inline">\(|H| = 1/\sqrt{2}\)</span>), which is attenuated by -3 dB (<span class="math inline">\(20 \log_{10}(1/\sqrt{2}) \approx -3\)</span> dB).</p></li>
+<li><p>The phase shift is -45 degrees (half of the total -90 degree shift).</p></li>
+</ul></li>
+<li><p>Less-attenuated frequencies <span class="math inline">\(&lt; \omega_o\)</span> are in the <strong>passband</strong>.</p></li>
+<li><p>More-attenuated frequencies <span class="math inline">\(&gt; \omega_o\)</span> are in the <strong>stopband</strong>.</p></li>
+<li><p><a href="../notebooks/filters.html">filters.ipynb</a></p></li>
+</ul>
+</section>
+<section id="how-is-omega_o-related-to-r-and-c" class="level3">
+<h3 class="anchored" data-anchor-id="how-is-omega_o-related-to-r-and-c">How is <span class="math inline">\(\omega_o\)</span> related to <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span>?</h3>
+<ul>
+<li><span class="math inline">\(\omega_o\)</span> is defined as the half-power point of the transfer function magnitude:</li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+|\bar{H}(j\omega_o)| = \frac{1}{\sqrt{2}} = \frac{1}{\sqrt{1 + (\omega_o RC)^2}} \\
+\omega_o = \frac{1}{RC}
+\end{gather}
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We can “tune” the frequency response of the filter by changing the values of <span class="math inline">\(R\)</span> and <span class="math inline">\(C\)</span>!</p>
+</div>
+</div>
+<ul>
+<li>At <span class="math inline">\(\omega_o\)</span>, <span class="math inline">\(\angle \bar{H}(j\omega_o) = -\tan^{-1}(1) = -45^\circ = -\frac{\pi}{4}\)</span>.</li>
+</ul>
+</section>
+<section id="how-to-design-a-high-pass-filter-hpf" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-design-a-high-pass-filter-hpf">How to Design a High-Pass Filter (HPF)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hpf.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li><p>For <span class="math inline">\(\omega = 0\)</span> (DC), the capacitor is an open circuit, so <span class="math inline">\(V_o = 0\)</span>.</p></li>
+<li><p>For <span class="math inline">\(\omega = \infty\)</span>, the capacitor is a short circuit, so <span class="math inline">\(V_o = V_i\)</span>.</p></li>
+<li><p>Higher frequency voltages are passed to the output, while lower frequency voltages are attenuated (taken up by the capacitor).</p></li>
+</ul>
+</section>
+<section id="hpf-transfer-function" class="level3">
+<h3 class="anchored" data-anchor-id="hpf-transfer-function">HPF Transfer Function</h3>
+<p><span class="math display">\[
+\begin{gather}
+V_o(j\omega) = V_i(j\omega) \frac{R}{R + \frac{1}{j\omega C}} \\
+H(j\omega) = \frac{j\omega RC}{1 + j\omega RC} \\
+H(j\omega) = \frac{\omega RC}{\sqrt{1 + (\omega RC)^2}} \frac{\angle \frac{\pi}{2}}{\angle \tan^{-1}(\omega RC)} \\
+|H(j\omega)| = \frac{\omega RC}{\sqrt{1 + (\omega RC)^2}} \\
+\angle H(j\omega) = \frac{\pi}{2} - \tan^{-1}(\omega RC) \\
+\end{gather}
+\]</span></p>
+</section>
+<section id="what-is-the-cutoff-frequency" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-cutoff-frequency">What is the cutoff frequency?</h3>
+<p>Assume <span class="math inline">\(|H(j\omega)|_{max} = 1\)</span> at <span class="math inline">\(\omega = \infty\)</span>.</p>
+<p><span class="math display">\[
+\begin{gather}
+|H(j\omega)| = \frac{|H(j\omega)|_{max}}{\sqrt{2}} \\
+\frac{1}{\sqrt{2}} = \frac{\omega_o RC}{\sqrt{1 + (\omega_o RC)^2}} \\
+\end{gather}
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\omega_o = \frac{1}{RC} \\
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="hpf-transfer-function-plot" class="level3">
+<h3 class="anchored" data-anchor-id="hpf-transfer-function-plot">HPF Transfer Function Plot</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rc_hpf_xfer_func.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li><p>The passband is now frequencies <span class="math inline">\(&gt;\omega_o\)</span>.</p></li>
+<li><p>The stopband is now frequencies <span class="math inline">\(&lt;\omega_o\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="spice-simulation-of-filters" class="level2">
+<h2 class="anchored" data-anchor-id="spice-simulation-of-filters">SPICE Simulation of Filters</h2>
+<p>In class demo…</p>
+</section>
+<section id="input-output-impedance" class="level2">
+<h2 class="anchored" data-anchor-id="input-output-impedance">Input &amp; Output Impedance</h2>
+<ul>
+<li><p>Now that we are developing filters to modulate source signals to deliver to an attached load, we need to consider the impedances of the source, filter, and load.</p></li>
+<li><p>The input impedance of the filter is the impedance “seen” by the source.</p></li>
+<li><p>The output impedance of the filter is the impedance “seen” by the load.</p></li>
+</ul>
+<section id="example-circuit" class="level3">
+<h3 class="anchored" data-anchor-id="example-circuit">Example Circuit</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Z_in_out_example.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>This can be considered a 3-stage circuit:</p>
+<ol type="1">
+<li><p>Source with internal impedance <span class="math inline">\(Z_S\)</span>.</p></li>
+<li><p>Filter with input impedance <span class="math inline">\(Z_{in}\)</span> and output impedance <span class="math inline">\(Z_{out}\)</span>.</p></li>
+<li><p>Load with impedance <span class="math inline">\(Z_L\)</span>.</p></li>
+</ol>
+</section>
+<section id="what-does-the-impedance-of-the-filter-look-like-to-the-source" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-the-impedance-of-the-filter-look-like-to-the-source">What does the impedance of the filter look like to the source?</h3>
+<ul>
+<li><p>Remove the impedance of the load by replacing it with an open circuit.</p></li>
+<li><p>Calculate the equivalent impedance of the filter that affects the current from the source.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Z_in.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>This is the <strong>input impedance</strong> of the filter, <span class="math inline">\(Z_{in}\)</span>.</p>
+<ul>
+<li><p><span class="math inline">\(Z_{in} = Z_f = Z_{C_f} + Z_{R_f}\)</span> (as “seen” by the source)</p></li>
+<li><p><span class="math inline">\(Z_{in} = \frac{V_{in}}{I_{in}}\)</span></p></li>
+</ul>
+</section>
+<section id="input-impedance-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="input-impedance-considerations">Input Impedance Considerations</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(Z_{in} &gt;&gt; Z_L\)</span>, then the attached load will not affect the operation of the filter.</p>
+<p>This means that we can cascade multiple filter stages without the load of one stage affecting the operation of the previous stage.</p>
+</div>
+</div>
+</section>
+<section id="what-does-the-impedance-of-the-filter-look-like-to-the-load" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-the-impedance-of-the-filter-look-like-to-the-load">What does the impedance of the filter look like to the load?</h3>
+<ul>
+<li>The <strong>output impedance</strong> of the filter, <span class="math inline">\(Z_{out}\)</span>, is defined as:</li>
+</ul>
+<p><span class="math display">\[
+Z_{out} = \frac{V_{oc}}{I_{sc}}
+\]</span></p>
+<p>This is the Thevenin/Norton equivalent impedance “seen” by the load (which includes the source):</p>
+<p><span class="math display">\[
+\begin{gather}
+Z_{out} = {Z_{in}}_T \\
+Z_{out} = Z_{R_f} || (Z_{R_S} + Z_{C_f}) \\
+\end{gather}
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that <span class="math inline">\(Z_{in} \neq Z_{out}\)</span>!</p>
+</div>
+</div>
+<p>We can measure input and output impedance experimentally in the lab too.</p>
+</section>
+</section>
+<section id="bandpass-filter-second-order-rlc" class="level2">
+<h2 class="anchored" data-anchor-id="bandpass-filter-second-order-rlc">Bandpass Filter (Second-Order, RLC)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bpf.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This, again, just looks like a voltage divider!</p>
+</div>
+</div>
+<section id="cutoff-frequencies" class="level3">
+<h3 class="anchored" data-anchor-id="cutoff-frequencies">Cutoff Frequencies</h3>
+<p>This is a second-order filter (two energy storage elements: <span class="math inline">\(L\)</span> and <span class="math inline">\(C\)</span>), so it has two cutoff frequencies: <span class="math inline">\(\omega_H\)</span> and <span class="math inline">\(\omega_L\)</span>.</p>
+<p><span class="math display">\[
+\begin{gather}
+H(j\omega) = \frac{V_o(j\omega)}{V_i(j\omega)} = \frac{R}{R + \frac{1}{j\omega C} + j\omega L} \\
+H(j\omega) = \frac{j\omega RC}{1 + j\omega RC - \omega^2 LC} \\
+\end{gather}
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rc_bpf_xfer_func.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="characteristic-frequencies" class="level3">
+<h3 class="anchored" data-anchor-id="characteristic-frequencies">Characteristic Frequencies</h3>
+<ul>
+<li><p>The <strong>bandwidth</strong> <span class="math inline">\(\Delta \omega\)</span> is the difference between the upper and lower cutoff frequencies: <span class="math inline">\(\Delta \omega = \omega_H - \omega_L\)</span>.</p></li>
+<li><p>The <strong>resonant frequency</strong> <span class="math inline">\(\omega_0\)</span> is the frequency at which the inductive and capacitive reactances are equal in magnitude:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+\omega_0 = \frac{1}{\sqrt{LC}} \\
+\end{gather}
+\]</span></p>
+<ul>
+<li>The resonant frequency is the <strong>geometric mean</strong> of the cutoff frequencies.</li>
+</ul>
+</section>
+<section id="calculating-cutoff-frequencies" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-cutoff-frequencies">Calculating Cutoff Frequencies</h3>
+<p>There are two points at which the power is half of the maximum power (or <span class="math inline">\(|H| = 1/\sqrt{2}\)</span>):</p>
+<p><span class="math display">\[
+\omega_{L,H} = \pm \frac{R}{2L} + \sqrt{\left(\frac{R}{2L}\right)^2 + \frac{1}{LC}} \\
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that you can view the bandpass filter as a cascade of a high-pass filter (formed by <span class="math inline">\(C\)</span> and <span class="math inline">\(R\)</span>) and a low-pass filter (formed by <span class="math inline">\(L\)</span> and <span class="math inline">\(R\)</span>), leading to a high- and low-frequency cutoff.</p>
+</div>
+</div>
+</section>
+<section id="quality-factor" class="level3">
+<h3 class="anchored" data-anchor-id="quality-factor">Quality Factor</h3>
+<p>How “sharp” is the peak of the bandpass filter?</p>
+<p>The quality factor <span class="math inline">\(Q\)</span> is defined as:</p>
+<p><span class="math display">\[
+Q = \frac{\omega_0}{\Delta \omega} = \frac{\omega_0}{\omega_H - \omega_L} = \frac{1}{R} \sqrt{\frac{L}{C}} \\
+\]</span></p>
+<p>A higher <span class="math inline">\(Q\)</span> indicates a sharper peak and a narrower bandwidth.</p>
+</section>
+<section id="damping-factor" class="level3">
+<h3 class="anchored" data-anchor-id="damping-factor">Damping Factor</h3>
+<p>The damping factor <span class="math inline">\(\zeta\)</span> is defined as:</p>
+<p><span class="math display">\[
+\zeta = \frac{1}{2Q} = \frac{R}{2} \sqrt{\frac{C}{L}} \\
+\]</span> It is a measure of how quickly oscillations in the system decay outside the passband.</p>
+</section>
+</section>
+<section id="bode-plots" class="level2">
+<h2 class="anchored" data-anchor-id="bode-plots">Bode Plots</h2>
+<p>Can we sketch transfer functions quickly without having to plot the exact function?</p>
+<p>Yes! Bode plots provide a way to visualize the frequency response of a system using logarithmic scales for frequency and gain.</p>
+<section id="key-features-of-bode-plots" class="level3">
+<h3 class="anchored" data-anchor-id="key-features-of-bode-plots">Key Features of Bode Plots</h3>
+<ol type="1">
+<li><strong>Magnitude Plot</strong>: Shows the gain (in dB) versus frequency (in log scale).</li>
+<li><strong>Phase Plot</strong>: Shows the phase shift (in radians or degrees) versus frequency (in log scale).</li>
+</ol>
+</section>
+<section id="steps-to-create-a-bode-plot" class="level3">
+<h3 class="anchored" data-anchor-id="steps-to-create-a-bode-plot">Steps to Create a Bode Plot</h3>
+<ol type="1">
+<li><strong>Identify Key Frequencies</strong>: Find the cutoff frequencies and any resonant frequencies.</li>
+<li><strong>Determine Asymptotic Behavior</strong>: Sketch the magnitude and phase plots using straight lines that approximate the behavior of the transfer function.</li>
+<li><strong>Add Details</strong>: Include any peaking or notches in the response.</li>
+</ol>
+</section>
+<section id="decibel-db-scale" class="level3">
+<h3 class="anchored" data-anchor-id="decibel-db-scale">Decibel (dB) Scale</h3>
+<p>Decibel is a logarithmic unit used to express the ratio of two values, commonly power or intensity.</p>
+<p>The formula to convert a power ratio to decibels is:</p>
+<p><span class="math display">\[
+L_{dB} = 10 \log_{10} \left( \frac{P}{P_0} \right)
+\]</span></p>
+<p>where: - <span class="math inline">\(L_{dB}\)</span> is the level in decibels, - <span class="math inline">\(P\)</span> is the power being measured, - <span class="math inline">\(P_0\)</span> is a reference power level.</p>
+</section>
+<section id="decibel-voltage-gain" class="level3">
+<h3 class="anchored" data-anchor-id="decibel-voltage-gain">Decibel Voltage Gain</h3>
+<p>For voltage gain, the formula is: <span class="math display">\[
+\left|\frac{V_{out}}{V_{in}}\right|_{dB} = 20 \log_{10} \left( \frac{V_{out}}{V_{in}} \right)
+\]</span></p>
+<p>Why 20 and not 10?</p>
+<p>Because power is proportional to the square of voltage (P ∝ V²), the factor of 20 accounts for this relationship when converting voltage ratios to decibels.</p>
+</section>
+<section id="why-decibels" class="level3">
+<h3 class="anchored" data-anchor-id="why-decibels">Why decibels?</h3>
+<p>Allows a large dynamic range of signal levels to be represented in a “reasonable” linear range.</p>
+<p>Example: hearing/sound intensity</p>
+<ul>
+<li><p>Whisper: 0.00001 W/m² = -50 dB</p></li>
+<li><p>Explosion: 100 W/m² = 100 dB</p></li>
+</ul>
+<p>Exponential changes in power correspond to linear changes in dB, which is how our filters behave. We experience logarithmic changes in voltage as a function of decades of frequency change.</p>
+</section>
+<section id="example-first-order-low-pass-filter" class="level3">
+<h3 class="anchored" data-anchor-id="example-first-order-low-pass-filter">Example: First-Order Low-Pass Filter</h3>
+<p>For a first-order low-pass filter, the Bode plot would show:</p>
+<p><span class="math display">\[
+\begin{align}
+\left|\frac{V_{out}}{V_{in}}\right|_{dB} &amp; = -20 \log_{10} \left( \frac{1}{\sqrt{1 + \left( \frac{\omega}{\omega_c} \right)^2}} \right) \\
+&amp; = 20 \log_{10}(1) - 10 \log_{10}\left(1 + \left(\frac{\omega}{\omega_c}\right)^2\right) \\
+&amp; = -10 \log_{10}\left(1 + \left(\frac{\omega}{\omega_c}\right)^2\right) \\
+\end{align}
+\]</span></p>
+<hr>
+<ul>
+<li><p>For <span class="math inline">\(\frac{\omega}{\omega_c} &lt;&lt; 1\)</span>, the gain is approximately <span class="math inline">\(-10 \log_{10}(1)\)</span> = 0 dB (no attenuation).</p></li>
+<li><p>For <span class="math inline">\(\frac{\omega}{\omega_c} &gt;&gt; 1\)</span>, the gain is approximately <span class="math inline">\(-10 \log_{10}((\frac{\omega}{\omega_c})^2)\)</span> = -20 log₁₀(ω/ω_c) dB (attenuation increases with frequency).</p>
+<ul>
+<li><p>A -20 dB/decade slope after the cutoff frequency.</p></li>
+<li><p>A phase shift that approaches -<span class="math inline">\(\frac{\pi}{2}\)</span> at high frequencies.</p></li>
+</ul></li>
+<li><p>At the cutoff frequency (<span class="math inline">\(\omega = \omega_c\)</span>):</p>
+<ul>
+<li><p>The gain is -3 dB, and</p></li>
+<li><p>The phase shift is -<span class="math inline">\(\frac{\pi}{4}\)</span>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="drawing-a-bode-plot-magnitude" class="level3">
+<h3 class="anchored" data-anchor-id="drawing-a-bode-plot-magnitude">Drawing a Bode Plot (Magnitude)</h3>
+<ul>
+<li><p>We simplify the transfer function into segments that are easy to plot, which intersect at the cutoff frequency.</p></li>
+<li><p>The slope of the magnitude plot changes at the cutoff frequency.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bode_plot_rc_lowpass.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="drawing-a-bode-plot-phase" class="level3">
+<h3 class="anchored" data-anchor-id="drawing-a-bode-plot-phase">Drawing a Bode Plot (Phase)</h3>
+<ul>
+<li><p><span class="math inline">\(\frac{\omega}{\omega_c} &lt;&lt; 1\)</span>: phase is approximately 0.</p></li>
+<li><p><span class="math inline">\(\frac{\omega}{\omega_c} &gt;&gt; 1\)</span>: phase is approximately -<span class="math inline">\(\frac{\pi}{2}\)</span>.</p></li>
+<li><p><span class="math inline">\(\omega = \omega_c\)</span>: phase is -<span class="math inline">\(\frac{\pi}{4}\)</span>.</p></li>
+<li><p>Approximate the phase transition as linear over two decades centered at the cutoff frequency.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bode_plot_rc_lowpass.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="what-does-the-bode-plot-of-a-first-order-high-pass-filter-look-like" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-the-bode-plot-of-a-first-order-high-pass-filter-look-like">What does the Bode Plot of a First-Order High-Pass Filter Look Like?</h3>
+<p>You tell me!</p>
+</section>
+</section>
+<section id="summary-for-generating-bode-plots" class="level2">
+<h2 class="anchored" data-anchor-id="summary-for-generating-bode-plots">Summary for Generating Bode Plots</h2>
+<ol type="1">
+<li><p>Solve for <span class="math inline">\(|H(j\omega)|\)</span> and <span class="math inline">\(\angle H(j\omega)\)</span>.</p></li>
+<li><p>Determine the cutoff frequency <span class="math inline">\(\omega_c\)</span>.</p></li>
+<li><p>Evaluate <span class="math inline">\(|H(j\omega)|\)</span> and <span class="math inline">\(\angle H(j\omega)\)</span> at “extreme” frequencies (<span class="math inline">\(\omega &lt;&lt; \omega_c\)</span> and <span class="math inline">\(\omega &gt;&gt; \omega_c\)</span>).</p></li>
+<li><p>Sketch the magnitude and phase plots using straight lines that approximate the behavior of the transfer function, intersecting at <span class="math inline">\(\omega_c\)</span>.</p>
+<ol type="a">
+<li><p>For first-order filters, the slope of the magnitude plot changes by ±20 dB/decade at the cutoff frequency.</p></li>
+<li><p>For first-order filters, the phase plot transitions from 0 to ±<span class="math inline">\(\frac{\pi}{2}\)</span> degrees over two decades centered at the cutoff frequency.</p></li>
+</ol></li>
+</ol>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../slides";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/davidbradway\.github\.io\/Biomedical-Electronic-Measurements\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/davidbradway/Biomedical-Electronic-Measurements/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

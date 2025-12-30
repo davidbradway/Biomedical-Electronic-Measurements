@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Mark Palmeri, M.D., Ph.D.">
+<meta name="dcterms.date" content="2025-09-03">
+
+<title>Switched, Series &amp; Parallel Resistance – Biomedical Electronic Measurements</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fced259a1985fd972ecb57c7cd45153f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-89abcb12e8852b82dab2915b19c79ac0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../slides/intro-circuits-notes.html">Learning Modules</a></li><li class="breadcrumb-item"><a href="../slides/r_eq-notes.html">Series and Parallel Resistance</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Biomedical Electronic Measurements</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course Information</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../bme-lab-policies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BME Lab Policies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://canvas.duke.edu/courses/72521" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Canvas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://edstem.org/us/courses/90243/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ed Discussion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://canvas.duke.edu/courses/72521" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gradescope</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../software-install-tutorials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Software Installation &amp; Tutorials</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Learning Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/intro-circuits-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Circuits</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/ohm-kcl-kvl-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ohm’s Law, KCL, and KVL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/r_eq-notes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Series and Parallel Resistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/circuit-analysis-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Circuit Analysis Techniques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/sources-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Source Transformations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/ecad_kicad_schematic-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECAD using KiCad: Schematic Capture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/ecad_kicad_spice-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ECAD using KiCad: SPICE Modeling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/reactive-components-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reactive Components: Capacitors &amp; Inductors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/complex-impedance-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Complex Impedance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/filters-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/transient-analysis-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transient Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/opamps-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Operational Amplifiers (Op-Amps)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/diodes-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diodes &amp; Rectifiers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/ohms_power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ohm’s Law and Power</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/kicad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KiCad: Schematic Capture &amp; SPICE Simulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/caps_inductors_scopes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Capacitors, Inductors, and Oscilloscopes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/impedance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Impedance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/filters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/transient_resp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transient Response</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/opamps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Operational Amplifiers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/diodes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diodes and Rectifiers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab_practical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab Practical</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/XYZs_of_Oscopes_Tektronix.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">XYZ of Oscilloscopes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/sinusoidal-signals-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sinusoidal Signals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://connectorbook.com/identification.html?N=&amp;n=lo_prof_w2b_conn&amp;f=tYuE;OA" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Connector Identification Utility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/teaching_assistant_expectations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Teaching Assistant Expectations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Problem Sets</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/_formatting_guidelines.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Formatting Guidelines</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps4_solutions.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 04: Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 05</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/BME253_PSET5_SOLUTION.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 05: Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../problem_sets/ps6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Problem Set 06</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exams</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exams/BME153_S09_TEST1_SOLUTIONS.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam 1 (Spring 2009)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exams/BME153_S09_TEST2_SOLUTIONS.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam 2 (Spring 2009)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#review-from-last-lecture" id="toc-review-from-last-lecture" class="nav-link" data-scroll-target="#review-from-last-lecture">Review from Last Lecture</a></li>
+  <li><a href="#analyzing-switched-resistive-circuit" id="toc-analyzing-switched-resistive-circuit" class="nav-link" data-scroll-target="#analyzing-switched-resistive-circuit">Analyzing Switched Resistive Circuit</a>
+  <ul class="collapse">
+  <li><a href="#step-1-assign-label-nodes-voltage-references-currents" id="toc-step-1-assign-label-nodes-voltage-references-currents" class="nav-link" data-scroll-target="#step-1-assign-label-nodes-voltage-references-currents">Step 1: Assign &amp; Label Nodes, Voltage References &amp; Currents</a></li>
+  <li><a href="#what-does-the-open-switch-mean" id="toc-what-does-the-open-switch-mean" class="nav-link" data-scroll-target="#what-does-the-open-switch-mean">What does the open switch mean?</a></li>
+  <li><a href="#step-2-kvl-kcl" id="toc-step-2-kvl-kcl" class="nav-link" data-scroll-target="#step-2-kvl-kcl">Step 2: KVL &amp; KCL</a></li>
+  <li><a href="#step-3-apply-element-equations-ohms-law" id="toc-step-3-apply-element-equations-ohms-law" class="nav-link" data-scroll-target="#step-3-apply-element-equations-ohms-law">Step 3: Apply Element Equations (Ohm’s Law)</a></li>
+  <li><a href="#step-4-check-power-balanace" id="toc-step-4-check-power-balanace" class="nav-link" data-scroll-target="#step-4-check-power-balanace">Step 4: Check Power Balanace</a></li>
+  </ul></li>
+  <li><a href="#next-closed-switch" id="toc-next-closed-switch" class="nav-link" data-scroll-target="#next-closed-switch">Next: Closed Switch</a>
+  <ul class="collapse">
+  <li><a href="#step-1-assign-label-nodes-voltage-references-currents-1" id="toc-step-1-assign-label-nodes-voltage-references-currents-1" class="nav-link" data-scroll-target="#step-1-assign-label-nodes-voltage-references-currents-1">Step 1: Assign &amp; Label Nodes, Voltage References &amp; Currents</a></li>
+  <li><a href="#step-2-kvl-kcl-1" id="toc-step-2-kvl-kcl-1" class="nav-link" data-scroll-target="#step-2-kvl-kcl-1">Step 2: KVL &amp; KCL</a></li>
+  <li><a href="#step-3-element-constraints" id="toc-step-3-element-constraints" class="nav-link" data-scroll-target="#step-3-element-constraints">Step 3: Element Constraints</a></li>
+  <li><a href="#step-4-check-power-balance" id="toc-step-4-check-power-balance" class="nav-link" data-scroll-target="#step-4-check-power-balance">Step 4: Check Power Balance</a></li>
+  </ul></li>
+  <li><a href="#simplifying-circuits-series-parallel-equivalent-resistance" id="toc-simplifying-circuits-series-parallel-equivalent-resistance" class="nav-link" data-scroll-target="#simplifying-circuits-series-parallel-equivalent-resistance">Simplifying Circuits: Series &amp; Parallel Equivalent Resistance</a>
+  <ul class="collapse">
+  <li><a href="#lets-take-a-look-at-that-open-switch-example" id="toc-lets-take-a-look-at-that-open-switch-example" class="nav-link" data-scroll-target="#lets-take-a-look-at-that-open-switch-example">Let’s take a look at that open switch example…</a></li>
+  </ul></li>
+  <li><a href="#series-resistance" id="toc-series-resistance" class="nav-link" data-scroll-target="#series-resistance">Series Resistance</a></li>
+  <li><a href="#voltage-division" id="toc-voltage-division" class="nav-link" data-scroll-target="#voltage-division">Voltage Division</a>
+  <ul class="collapse">
+  <li><a href="#common-uses-of-voltage-dividers" id="toc-common-uses-of-voltage-dividers" class="nav-link" data-scroll-target="#common-uses-of-voltage-dividers">Common Uses of Voltage Dividers</a></li>
+  </ul></li>
+  <li><a href="#parallel-resistance-circuits" id="toc-parallel-resistance-circuits" class="nav-link" data-scroll-target="#parallel-resistance-circuits">Parallel Resistance Circuits</a></li>
+  <li><a href="#current-divider" id="toc-current-divider" class="nav-link" data-scroll-target="#current-divider">Current Divider</a>
+  <ul class="collapse">
+  <li><a href="#solve-for-r_eq-and-ohms-law" id="toc-solve-for-r_eq-and-ohms-law" class="nav-link" data-scroll-target="#solve-for-r_eq-and-ohms-law">Solve for <span class="math inline">\(R_{eq}\)</span> and Ohm’s Law</a></li>
+  <li><a href="#what-about-i_1-and-i_2" id="toc-what-about-i_1-and-i_2" class="nav-link" data-scroll-target="#what-about-i_1-and-i_2">What about <span class="math inline">\(i_1\)</span> and <span class="math inline">\(i_2\)</span>?</a></li>
+  <li><a href="#lets-look-at-the-limiting-cases" id="toc-lets-look-at-the-limiting-cases" class="nav-link" data-scroll-target="#lets-look-at-the-limiting-cases">Lets look at the limiting cases…</a></li>
+  </ul></li>
+  <li><a href="#physiology-analogs" id="toc-physiology-analogs" class="nav-link" data-scroll-target="#physiology-analogs">Physiology Analogs</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/davidbradway/Biomedical-Electronic-Measurements/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="r_eq-slides.html"><i class="bi bi-file-slides"></i>RevealJS (live)</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../slides/intro-circuits-notes.html">Learning Modules</a></li><li class="breadcrumb-item"><a href="../slides/r_eq-notes.html">Series and Parallel Resistance</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Switched, Series &amp; Parallel Resistance</h1>
+<p class="subtitle lead">BME253L - Fall 2025</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Mark Palmeri, M.D., Ph.D. </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Duke University
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 3, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li><p>Solve [switched] resistive circuits.</p></li>
+<li><p>Simplify series and parallel resistance networks <span class="math inline">\(\rightarrow\)</span> equivalent resistance.</p></li>
+</ul>
+</section>
+<section id="review-from-last-lecture" class="level2">
+<h2 class="anchored" data-anchor-id="review-from-last-lecture">Review from Last Lecture</h2>
+<ul>
+<li><p>KCL, KVL &amp; Ohm’s Law</p></li>
+<li><p>Balance of Power</p></li>
+<li><p>Resistive Loads</p></li>
+<li><p>[Non-]ideal Sources</p></li>
+<li><p>Measuring Voltage &amp; Current</p></li>
+</ul>
+</section>
+<section id="analyzing-switched-resistive-circuit" class="level2">
+<h2 class="anchored" data-anchor-id="analyzing-switched-resistive-circuit">Analyzing Switched Resistive Circuit</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<p><img src="images/r_eq_ckt.png" class="img-fluid"></p>
+</div><div class="column" style="width:30%;">
+<p>Given:</p>
+<ul>
+<li><span class="math inline">\(v_s\)</span> = 300 V</li>
+<li><span class="math inline">\(R_1\)</span> = 100 <span class="math inline">\(\Omega\)</span></li>
+<li><span class="math inline">\(R_2\)</span> = 100 <span class="math inline">\(\Omega\)</span></li>
+<li><span class="math inline">\(R_3\)</span> = 200 <span class="math inline">\(\Omega\)</span></li>
+<li><span class="math inline">\(R_o\)</span> = 100 <span class="math inline">\(\Omega\)</span></li>
+</ul>
+</div>
+</div>
+<p><strong>Find <span class="math inline">\(v_o\)</span> with both the switch open and closed.</strong></p>
+<p>We will start with the switch open case…</p>
+<section id="step-1-assign-label-nodes-voltage-references-currents" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-assign-label-nodes-voltage-references-currents">Step 1: Assign &amp; Label Nodes, Voltage References &amp; Currents</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use the (+) sign convention!</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r_eq_ckt_labeled.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="what-does-the-open-switch-mean" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-the-open-switch-mean">What does the open switch mean?</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An open switch means no current can flow through <span class="math inline">\(R_3\)</span>!</p>
+</div>
+</div>
+<p><img src="images/r_eq_ckt_labeled_sw_open.png" class="img-fluid"></p>
+</section>
+<section id="step-2-kvl-kcl" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-kvl-kcl">Step 2: KVL &amp; KCL</h3>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img src="images/r_eq_ckt_labeled_sw_open.png" class="img-fluid"></p>
+</div><div class="column" style="width:40%;">
+<ul>
+<li><p>KVL</p>
+<ul>
+<li><p><span class="math inline">\(D \rightarrow A \rightarrow B \rightarrow C \rightarrow D\)</span></p></li>
+<li><p><span class="math inline">\(-v_s + v_1 + v_2 + v_o = 0\)</span></p></li>
+</ul></li>
+<li><p>KCL</p>
+<ul>
+<li><p><span class="math inline">\(A: i_s = i_1\)</span></p></li>
+<li><p><span class="math inline">\(B: i_1 = i_2\)</span></p></li>
+<li><p><span class="math inline">\(C: i_2 = i_o\)</span></p></li>
+<li><p>So, <span class="math inline">\(i_s = i_1 = i_2 = i_o\)</span></p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is one, closed-path loop!</p>
+</div>
+</div>
+</section>
+<section id="step-3-apply-element-equations-ohms-law" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-apply-element-equations-ohms-law">Step 3: Apply Element Equations (Ohm’s Law)</h3>
+<ul>
+<li><p>Ohms’ Law</p>
+<ul>
+<li><p><span class="math inline">\(v_1 = R_1 i_s\)</span></p></li>
+<li><p><span class="math inline">\(v_2 = R_2 i_s\)</span></p></li>
+<li><p><span class="math inline">\(v_o = R_o i_s\)</span></p></li>
+</ul></li>
+<li><p>Substitute voltage expressions into KVL expression, all in terms of <span class="math inline">\(i_s\)</span>:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{gather}
+-v_s + R_1 i_s + R_2 i_s + R_o i_s = 0 \\
+v_s = i_s \left( R_1 + R_2 + R_0 \right)
+\end{gather}
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Series Resistance Foreshadowing">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Series Resistance Foreshadowing
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice the sum of the resistors…</p>
+</div>
+</div>
+<hr>
+<p><span class="math display">\[
+\begin{gather}
+i_s = \frac{v_s}{R_1 + R_2 + R_3} = \frac{300 V}{300 \Omega} = 1 A \\
+v_o = R_o i_s = (100 \Omega) (1 A) = 100 V
+\end{gather}
+\]</span></p>
+</section>
+<section id="step-4-check-power-balanace" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-check-power-balanace">Step 4: Check Power Balanace</h3>
+<p><span class="math display">\[
+\begin{gather}
+P = IV = I^2 R = \frac{V^2}{R} \\
+\Sigma_n P_n = 0 \\
+(-300 V)(1 A) + (1 A)^2(100 \Omega) + (1 A)^2(100 \Omega) + (1 A)^2(100 \Omega) = 0 ✅
+\end{gather}
+\]</span></p>
+</section>
+</section>
+<section id="next-closed-switch" class="level2">
+<h2 class="anchored" data-anchor-id="next-closed-switch">Next: Closed Switch</h2>
+<section id="step-1-assign-label-nodes-voltage-references-currents-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-assign-label-nodes-voltage-references-currents-1">Step 1: Assign &amp; Label Nodes, Voltage References &amp; Currents</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r_eq_ckt_labeled_sw_closed.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="step-2-kvl-kcl-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-kvl-kcl-1">Step 2: KVL &amp; KCL</h3>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r_eq_ckt_labeled_sw_closed.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<ul>
+<li><p>KVL</p>
+<ul>
+<li><p><span class="math inline">\(D \rightarrow A \rightarrow B \rightarrow C \rightarrow D\)</span></p>
+<ul>
+<li><span class="math inline">\(-v_s + v_1 + v_2 + v_o = 0\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(D \rightarrow A \rightarrow B \rightarrow D\)</span></p>
+<ul>
+<li><span class="math inline">\(-v_s + v_1 + v_3 = 0\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(D \rightarrow B \rightarrow C \rightarrow D\)</span></p>
+<ul>
+<li><span class="math inline">\(-v_3 + v_2 + v_0 = 0\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<hr>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r_eq_ckt_labeled_sw_closed.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<ul>
+<li><p>KCL</p>
+<ul>
+<li><p><span class="math inline">\(A: i_s = i_1\)</span></p></li>
+<li><p><span class="math inline">\(B: i_1 = i_2 + i_3\)</span></p></li>
+<li><p><span class="math inline">\(C: i_2 = i_o\)</span></p></li>
+<li><p><span class="math inline">\(D: i_3 + i_o = i_s\)</span></p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="step-3-element-constraints" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-element-constraints">Step 3: Element Constraints</h3>
+<p><span class="math display">\[
+\begin{gather}
+v_1 = i_1 R_1 \\
+v_2 = i_2 R_2 \\
+v_3 = i_3 R_3 \\
+v_o = i_o R_o
+\end{gather}
+\]</span></p>
+<p>Next, start to solve!</p>
+<hr>
+<ol type="1">
+<li><p>Substitute current expressions into Ohm’s law relationships:</p>
+<p><span class="math display">\[
+\begin{gather}
+i_s = i_1 = i_3 + i_o \\
+i_2 = i_0 \\
+v_1 = R_1 \left(i_o + i_3\right) \\
+v_2 = i_o R_2
+\end{gather}
+\]</span></p></li>
+</ol>
+<hr>
+<ol start="2" type="1">
+<li><p>Substitute these expressions into KVL equations:</p>
+<ol type="a">
+<li><p>First KVL expression: <span class="math display">\[
+\begin{gather}
+-v_s + R_1 i_o + R_1 i_3 + i_o R_2 + i_o R_o = 0 \\
+-v_s + i_o \left(R_1 + R_2 + R_o\right) + i_3 R_1 = 0
+\end{gather}
+\]</span></p></li>
+<li><p>Second KVL expression:</p></li>
+</ol>
+<p><span class="math display">\[
+\begin{gather}
+-v_s + R_1 i_o + R_1 i_3 + R_3 i_3 = 0 \\
+-v_s + R_1 i_o + i_3 \left(R_1 + R_3 \right) = 0
+\end{gather}
+\]</span></p></li>
+</ol>
+<hr>
+<ol start="3" type="1">
+<li>Solve for <span class="math inline">\(i_3\)</span> in the first expression and substitute it into the second expression:</li>
+</ol>
+<p><span class="math display">\[
+\begin{gather}
+i_3 = \frac{v_s - i_o \left(R_1 + R_2 + R_o\right)}{R_1} \\
+-v_s + R_1 i_o + \left(\frac{R_1 + R_3}{R_1}\right)\left[ v_s - i_o \left(R_1 + R_2 + R_o\right)\right] = 0
+\end{gather}
+\]</span></p>
+<ol start="4" type="1">
+<li>Solve for <span class="math inline">\(i_o\)</span> and <span class="math inline">\(v_o\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+v_s \left[ -1 + \frac{R_1 + R_3}{R_1} \right] = i_o \left[ \frac{R_1 + R_3}{R_1} \left( R_1 + R_2 + R_o \right) - R_1 \right] \\
+\]</span></p>
+<hr>
+<p><span class="math inline">\(v_s\)</span> and all the <span class="math inline">\(R\)</span> values are given, so: <span class="math display">\[
+\begin{gather}
+i_o = 0.75 A \\
+v_o = i_o R_o = (0.75 A) (100 \Omega) = 75 V
+\end{gather}
+\]</span></p>
+</section>
+<section id="step-4-check-power-balance" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-check-power-balance">Step 4: Check Power Balance</h3>
+<p><span class="math display">\[
+\begin{align}
+P_1 &amp; = (100 \Omega) \left( i_o + i_3 \right)^2\\
+i_3 &amp; = \frac{v_s - i_o\left(R_1 + R_2 +R_3\right)}{R_1} = 0.75 A \\
+P_1 &amp; = 225 W \\
+P_2 &amp; = (100 \Omega) i_o^2 = 56.25 W \\
+P_3 &amp; = (200 \Omega) i_3^2 = 112.5 W \\
+P_o &amp; = (100 \Omega) i_o^2 = 56.25 W
+\end{align}
+\]</span></p>
+<p>Total Power Dissipated = 450 W</p>
+<p><span class="math display">\[
+\begin{align}
+P_s &amp; = i_s v_s \\
+i_s &amp; = i_o + i_3
+\end{align}
+\]</span></p>
+<p>Total Power Generated: -450 W ✅</p>
+</section>
+</section>
+<section id="simplifying-circuits-series-parallel-equivalent-resistance" class="level2">
+<h2 class="anchored" data-anchor-id="simplifying-circuits-series-parallel-equivalent-resistance">Simplifying Circuits: Series &amp; Parallel Equivalent Resistance</h2>
+<ul>
+<li><p>Solving circuits with many components can quickly become cumbersome, especially if we don’t need to know the voltage and current associated with each individual circuit element.</p></li>
+<li><p>We can simplify resistive networks (connections of resistors), using the following relationships:</p>
+<ul>
+<li><p>Two resistors are considered to be in <strong>parallel</strong> if they share the same node on each of their connections (i.e., have the same voltage drop across them due to the same nodes).</p></li>
+<li><p>Two resistors are considered to be in <strong>series</strong> if the same current flows through them through a common node.</p></li>
+</ul></li>
+<li><p>Two circuits are considered electrically equivalent if they share the same I-V (current / voltage) relationship.</p></li>
+</ul>
+<section id="lets-take-a-look-at-that-open-switch-example" class="level3">
+<h3 class="anchored" data-anchor-id="lets-take-a-look-at-that-open-switch-example">Let’s take a look at that open switch example…</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r_eq_ckt_labeled_sw_open.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Remember that <span class="math inline">\(i_s = i_1 = i_2 = i_o\)</span></p>
+<ul>
+<li><span class="math inline">\(R_1\)</span> is in series with <span class="math inline">\(R_2\)</span>, which is in series with <span class="math inline">\(R_o\)</span>; they are all in series with one another!</li>
+</ul></li>
+<li><p>Remember applying KVL:</p>
+<ul>
+<li><p><span class="math inline">\(v_s = i_s \left(R_1 + R_2 + R_o\right)\)</span>.</p></li>
+<li><p>This looks like Ohm’s law for a single resistor (<span class="math inline">\(R_{eq}\)</span>): <span class="math inline">\(v_s = i_s R_{eq}\)</span>, where:</p></li>
+<li><p><span class="math inline">\(R_{eq} = R_1 + R_2 + R_o\)</span></p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="series-resistance" class="level2">
+<h2 class="anchored" data-anchor-id="series-resistance">Series Resistance</h2>
+<ul>
+<li>If <span class="math inline">\(R_1, R_2, ... R_N\)</span> are in <strong>series</strong>, then <span class="math inline">\(i_{R_1} = i_{R_2} = ... i_{R_N}\)</span>, which means:</li>
+</ul>
+<p><span class="math display">\[
+R_{eq} = \Sigma_{n=1}^N R_n
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r_eq_ckt_series_r_eq.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>Why is this useful? Way easier to solve for <span class="math inline">\(i_o\)</span> in this case; it is just Ohm’s Law!</li>
+</ul>
+</section>
+<section id="voltage-division" class="level2">
+<h2 class="anchored" data-anchor-id="voltage-division">Voltage Division</h2>
+<p>What do series resistors do to a source voltage?</p>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/voltage_divider.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div><div class="column" style="width:70%;">
+<ul>
+<li><p><span class="math inline">\(KVL: -v_s + v_i + v_2 = 0\)</span></p></li>
+<li><p><span class="math inline">\(KCL_{B}: i_1 = i_2\)</span></p></li>
+<li><p><span class="math inline">\(v_s = R_1 i_1 + R_2 i_1\)</span></p></li>
+<li><p><span class="math inline">\(i_1 = \frac{v_s}{R_1 + R_2}\)</span></p></li>
+<li><p><span class="math inline">\(v_1 = i_1 R_1 = v_s \frac{R_1}{R_1 + R_2}\)</span></p></li>
+<li><p><span class="math inline">\(v_2 = i_2 R_2 = v_s \frac{R_2}{R_1 + R_2}\)</span></p></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Series resistors divide voltage in proportion to <span class="math inline">\(\frac{R_n}{R_{eq}}\)</span>!</p>
+</div>
+</div>
+<section id="common-uses-of-voltage-dividers" class="level3">
+<h3 class="anchored" data-anchor-id="common-uses-of-voltage-dividers">Common Uses of Voltage Dividers</h3>
+<ul>
+<li><p><strong>Multiple Fixed Voltage Sources</strong>: Create smaller source voltages from a larger single source.</p></li>
+<li><p><strong>Signal Level Adjustment</strong>: Reduce a high voltage signal to a lower voltage level suitable for input to a measurement circuit.</p></li>
+<li><p><strong>Evaluate Impact of “Real” Voltage Source Impedance</strong>: Evaluate the parasitic voltage / power loses due to interal voltage source resistance.</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Voltage division will be one of the most important circuit analyses we do in medical instrumentation.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="parallel-resistance-circuits" class="level2">
+<h2 class="anchored" data-anchor-id="parallel-resistance-circuits">Parallel Resistance Circuits</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r_eq_ckt_parallel.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li><p><span class="math inline">\(R_1\)</span> &amp; <span class="math inline">\(R_2\)</span> share common nodes and have the same voltage drop across them, so they are in <strong>parallel</strong>.</p></li>
+<li><p>KCL: <span class="math inline">\(i_s = i_1 + i_2\)</span></p></li>
+<li><p>KVL: <span class="math inline">\(-v1 + v_2 = 0 \rightarrow v_1 = v_2\)</span></p></li>
+<li><p>Ohm’s Law: <span class="math inline">\(i_1 = \frac{v_1}{R_1}\)</span> and <span class="math inline">\(i_2 = \frac{v_2}{R_2} = \frac{v_1}{R_2}\)</span></p></li>
+</ul>
+<hr>
+<p>What is <span class="math inline">\(R_{eq}\)</span> for <span class="math inline">\(i_s\)</span>?</p>
+<ul>
+<li><p><span class="math inline">\(i_s = v_1 \left( \frac{1}{R_1} + \frac{1}{R_2} \right)\)</span></p></li>
+<li><p><span class="math inline">\(v_1 = i_s R_{eq}\)</span></p></li>
+<li><p><span class="math inline">\(R_{eq} = \frac{R_1 R_2}{R_1 + R_2}\)</span></p></li>
+</ul>
+<p>For <span class="math inline">\(N\)</span> resistors in parallel:</p>
+<p><span class="math display">\[
+R_{eq} = \frac{1}{\frac{1}{R_1} + \frac{1}{R_2} + ... \frac{1}{R_N}} = \left( \Sigma_{n=1}^N \frac{1}{R_n} \right)^{-1}
+\]</span></p>
+<p>Or in terms of conductance:</p>
+<p><span class="math display">\[
+G_{eq} = \Sigma_{n=1}^N G_n
+\]</span></p>
+</section>
+<section id="current-divider" class="level2">
+<h2 class="anchored" data-anchor-id="current-divider">Current Divider</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/current_divider.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Question?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What is the “fastest” way to solve for <span class="math inline">\(v_1\)</span>?</p>
+</div>
+</div>
+<section id="solve-for-r_eq-and-ohms-law" class="level3">
+<h3 class="anchored" data-anchor-id="solve-for-r_eq-and-ohms-law">Solve for <span class="math inline">\(R_{eq}\)</span> and Ohm’s Law</h3>
+<p><span class="math display">\[
+\begin{align}
+R_{eq} &amp; = \frac{1}{\frac{1}{R_1} + \frac{1}{R_2}} \\
+v_1 &amp; = i_S R_{eq}
+\end{align}
+\]</span></p>
+</section>
+<section id="what-about-i_1-and-i_2" class="level3">
+<h3 class="anchored" data-anchor-id="what-about-i_1-and-i_2">What about <span class="math inline">\(i_1\)</span> and <span class="math inline">\(i_2\)</span>?</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/current_divider.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><span class="math display">\[
+\begin{align}
+i_1 &amp; = \frac{v_1}{R_1} = \frac{i_S R_{eq}}{R_1} = i_S \frac{\frac{1}{R_1}}{\frac{1}{R_1} + \frac{1}{R_2}} \\
+i_1 &amp; = i_S \left(\frac{R_2}{R_1+R_2}\right) \\
+i_2 &amp; = i_S - i_1 \\
+i_2 &amp; = i_S \left( \frac{R_1}{R_1 + R_2} \right)
+\end{align}
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The current in one branch is proportional to its conductance, which is proportional to the resistance in the alternate branch(es)!</p>
+</div>
+</div>
+</section>
+<section id="lets-look-at-the-limiting-cases" class="level3">
+<h3 class="anchored" data-anchor-id="lets-look-at-the-limiting-cases">Lets look at the limiting cases…</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/current_divider.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li><p>If <span class="math inline">\(R_2 \rightarrow 0\)</span>, then <span class="math inline">\(i_i \rightarrow 0\)</span>. In other words, current flows to the path of least (in this case, no) resistance.</p></li>
+<li><p>If <span class="math inline">\(R_2 \rightarrow \infty\)</span>, then <span class="math inline">\(i_1 \rightarrow i_S\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="physiology-analogs" class="level2">
+<h2 class="anchored" data-anchor-id="physiology-analogs">Physiology Analogs</h2>
+<ul>
+<li><p>Cardiovascular System</p>
+<ul>
+<li><p>Parallel circuit - pulmonary capillary beds - very low resistance</p></li>
+<li><p>Parallel &amp; series circuit - arterial distribution via aorta</p></li>
+</ul></li>
+<li><p>Neuro ventricular shunt - lower resistance</p></li>
+<li><p>Pulmonary reactive airway disease</p></li>
+</ul>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li><p>Solving for <span class="math inline">\(R_{eq}\)</span> can greatly simplify circuits to “simple” loops for circuit analysis.</p></li>
+<li><p>Voltage and current division are:</p>
+<ul>
+<li><p>Reduce circuit analysis to “simple” circuit analysis rules.</p></li>
+<li><p>Can be used to design circuits where voltage and current need to be controlled in specific ways.</p></li>
+</ul></li>
+</ul>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../slides";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/davidbradway\.github\.io\/Biomedical-Electronic-Measurements\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/davidbradway/Biomedical-Electronic-Measurements/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
